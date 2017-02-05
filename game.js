@@ -1,12 +1,11 @@
 function init() {
-    let p = document.querySelector('#question');
-    p.addEventListener('click', getNewQuestion);
-}
+    let button = document.querySelector('#btnQuestion');
+    button.addEventListener('click', getNewQuestion);
 
-console.log('yippee');
+    // let submit = document.querySelector('submit');
+    // submit.addEventListener('click', checkAnswer());
+};
 
-
-//My Ajax request to get a new question.
 
 function getNewQuestion() {
     let request = new XMLHttpRequest();
@@ -14,19 +13,50 @@ function getNewQuestion() {
     request.open('GET', "http://jservice.io/api/random");
 
     request.addEventListener('load', function () {
-        console.log('weve got mail');
-    })
-
 
         let response = JSON.parse(request.responseText);
-        // for (let i=0; i < response.results.length; i++) {
-        //     let trivia = response.results[0];
-            
-            console.log(request.responseText);
-            // showQuestion(trivia);
-        }
+        let question = response[0];
+        console.log(response[0].value);
+        console.log(response[0].category.title);
+        console.log(response[0].question);
 
-request.send();
+        showQuestion(question);
+    });
+
+    request.send();
+}
+
+
+function showQuestion(question) {
+
+    let question = document.createElement('li');
+    question.textContent = "Question: " + question.question; 
+    // let question = document.querySelector('#question');
+    // question.textContent = question.question; 
+
+    let points = document.createElement('li');
+    points.textContent = "Points Value: " + points.value;
+
+    let category = document.createElement('li');
+    category.textContent = "Category: " + category.category; 
+
+    let parent = document.querySelector('#question-list');
+    parent.appendChild(question);
+    parent.appendChild(points);
+    parent.appendChild(category);
+
+}
+
+// function checkAnswer() {
+
+//     let guess = document.querySelector('guess').value; 
+//     if (guess === current.answer) {
+//         score = score + current.points;
+//         document.querySelector('#player-score').textContent = score;
+//     }
+
+// };
+
 
 window.addEventListener('load', init);
 
@@ -35,4 +65,7 @@ window.addEventListener('load', init);
 
 
 
-       
+
+
+
+
