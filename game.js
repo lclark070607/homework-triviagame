@@ -15,19 +15,19 @@ function getNewQuestion() {
     request.addEventListener('load', function () {
 
         let response = JSON.parse(request.responseText);
-        let question = response[0];
+        let trivia = response[0];
         console.log(response[0].value);
         console.log(response[0].category.title);
         console.log(response[0].question);
 
-        showQuestion(question);
+        showQuestion(trivia);
     });
 
     request.send();
 }
 
 
-function showQuestion(question) {
+function showQuestion(trivia) {
 
     let question = document.createElement('li');
     question.textContent = "Question: " + question.question; 
