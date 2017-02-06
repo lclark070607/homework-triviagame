@@ -60,7 +60,6 @@ function checkAnswer() {
     }
 };
 
-
 window.addEventListener('load', init);
 
 
