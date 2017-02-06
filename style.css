@@ -4,3 +4,8 @@ button {
     background-color: blue;
 
 };
+
+ul {
+     text-decoration-style: none;
+     list-style-type: none;
+}

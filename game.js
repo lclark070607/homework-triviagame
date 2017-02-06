@@ -2,8 +2,7 @@ function init() {
     let button = document.querySelector('#btnQuestion');
     button.addEventListener('click', getNewQuestion);
 
-    // let submit = document.querySelector('submit');
-    // submit.addEventListener('click', checkAnswer());
+    checkAnswer();
 };
 
 
@@ -19,8 +18,10 @@ function getNewQuestion() {
         console.log(response[0].value);
         console.log(response[0].category.title);
         console.log(response[0].question);
+        console.log(response[0].answer)
 
         showQuestion(trivia);
+        checkAnswer(trivia);
     });
 
     request.send();
@@ -30,15 +31,14 @@ function getNewQuestion() {
 function showQuestion(trivia) {
 
     let question = document.createElement('li');
-    question.textContent = "Question: " + question.question; 
-    // let question = document.querySelector('#question');
-    // question.textContent = question.question; 
+    question.textContent = "Question: " + trivia.question;
+
 
     let points = document.createElement('li');
-    points.textContent = "Points Value: " + points.value;
+    points.textContent = "Points Value: " + trivia.value;
 
     let category = document.createElement('li');
-    category.textContent = "Category: " + category.category; 
+    category.textContent = "Category: " + trivia.category.title;
 
     let parent = document.querySelector('#question-list');
     parent.appendChild(question);
@@ -47,15 +47,18 @@ function showQuestion(trivia) {
 
 }
 
-// function checkAnswer() {
+function checkAnswer(trivia) {
 
-//     let guess = document.querySelector('guess').value; 
-//     if (guess === current.answer) {
-//         score = score + current.points;
-//         document.querySelector('#player-score').textContent = score;
-//     }
+    let score = 0;
+    let guess = document.querySelector('#guess').value;
+    if (guess === trivia.answer) {
+        score = score + trivia.points;
+        document.querySelector('#player-score').textContent = score;
+    }
 
-// };
+    let button2 = document.querySelector('#btnGuess');
+    button2.addEventListener('click', checkAnswer);
+};
 
 
 window.addEventListener('load', init);
