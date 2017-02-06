@@ -2,9 +2,12 @@ function init() {
     let button = document.querySelector('#btnQuestion');
     button.addEventListener('click', getNewQuestion);
 
-    checkAnswer();
+    let button2 = document.querySelector('#btnGuess');
+    button2.addEventListener('click', checkAnswer);
+
 };
 
+let trivia = null;
 
 function getNewQuestion() {
     let request = new XMLHttpRequest();
@@ -14,14 +17,14 @@ function getNewQuestion() {
     request.addEventListener('load', function () {
 
         let response = JSON.parse(request.responseText);
-        let trivia = response[0];
+        trivia = response[0];
         console.log(response[0].value);
         console.log(response[0].category.title);
         console.log(response[0].question);
         console.log(response[0].answer)
 
         showQuestion(trivia);
-        checkAnswer(trivia);
+
     });
 
     request.send();
@@ -47,17 +50,14 @@ function showQuestion(trivia) {
 
 }
 
-function checkAnswer(trivia) {
+function checkAnswer() {
 
     let score = 0;
     let guess = document.querySelector('#guess').value;
     if (guess === trivia.answer) {
-        score = score + trivia.points;
+        score = score + trivia.value;
         document.querySelector('#player-score').textContent = score;
     }
-
-    let button2 = document.querySelector('#btnGuess');
-    button2.addEventListener('click', checkAnswer);
 };
 
 
